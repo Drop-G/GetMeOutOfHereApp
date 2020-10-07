@@ -68,3 +68,4 @@ function currentWeather() {
         $("#windspeed").text(windspeed.toFixed(2) + " " + "mph");
     });
 }
+

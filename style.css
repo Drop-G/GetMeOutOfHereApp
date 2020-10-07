@@ -1,0 +1,12 @@
+body { margin-top:0; padding: 0; }
+#map { position: absolute; top: 65spx; bottom: 0; width: 100%; }
+
+img {
+    max-width: 50%;
+    height: auto;
+  }
+
+.nav-wrapper{
+    position: fixed;
+}
+
