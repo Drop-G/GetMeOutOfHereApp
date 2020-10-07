@@ -1,23 +1,36 @@
-// sets variables to be used in functions and defines moment and local storage variables
-var API="381913a298d3365457e6e5d4fdf83c2c";
-var weather = "";
-var city = "";
-var current_date = moment().format("L");
-lon= "";
-lat= "";
-// present day forecast
-function currentWeather() {
 
-    weather = "api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=" + API;
+function getWeather() {
+    let temperature = document.getElementById("temperature");
+    let description = document.getElementById("description");
+    let location = document.getElementById("location");
+    let API = "381913a298d3365457e6e5d4fdf83c2c";
 
-    $.getJSON(weather, function (json) {
-        var temp = (json.main.temp - 273.15) * (9 / 5) + 32;
-        var windspeed = json.wind.speed * 2.237;
+    location.innerHTML = "Locating...";
 
-        $("#current-city").text(json.name + " " + current_date);
-        $("#weather-img").attr("src", "https://openweathermap.org/img/w/" + json.weather[0].icon + ".png");
-        $("#temperature").text(temp.toFixed(2) + "°F");
-        $("#humidity").text(json.main.humidity + "%");
-        $("#windspeed").text(windspeed.toFixed(2) + " " + "mph");
-    });
-}
+    navigator.geolocation.getCurrentPosition(success, error);
+
+    function success(position) {
+        console.log(position);
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        let url = "https://api.openweathermap.org/data/2.5/weather" + "?lat=" + latitude + "&lon=" + longitude + "&appid=" + API + "&units=imperial";
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                let temp = data.main.temp;
+                temperature.innerHTML = temp + "° F";
+                location.innerHTML =
+                    data.name + " (" + latitude + "°, " + longitude + "°)";
+                description.innerHTML = data.weather[0].main;
+            });
+        }
+
+        function error() {
+        console.log("error");
+        location.innerHTML = "Unable to retrieve your location, Check browser"
+        }
+    }
+        
+        getWeather();   
