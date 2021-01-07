@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Drop-G/GetMeOutOfHereApp#readme",
   "dependencies": {
-    "heroku": "^7.47.5"
+    "heroku": "^7.47.6"
   }
 }
